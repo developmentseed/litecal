@@ -1,0 +1,218 @@
+div.litecal { font-size:11px; }
+
+div.litecal .litecal-title {
+  line-height:30px;
+  margin:0px 0px 10px;
+  }
+
+  div.litecal .litecal-title h3.litecal-title {
+    float:left;
+    font-size:18px;
+    }
+
+  div.litecal .litecal-title ul.links,
+  div.litecal .litecal-title ul.links li,
+  div.litecal .litecal-title ul.links li a {
+    margin:0px;
+    padding:0px;
+    }
+
+  div.litecal .litecal-title ul.links {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    background:#ddd;
+    float:right;
+    }
+
+  div.litecal .litecal-title ul.links li,
+  div.litecal .litecal-title ul.links li a { float:left; }
+  div.litecal .litecal-title ul.links li a { padding:0px 10px; }
+  div.litecal .litecal-title ul.links li.next a { border-left:1px solid #fff; }
+
+div.litecal .litecal-timespan {
+  border-right:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  position:relative;
+  background:#fff;
+  padding:20px 0px 0px;
+  }
+
+  div.litecal .timespan-first { border-top:1px solid #ddd; }
+
+div.litecal .litecal-slot {
+  background:#fff;
+  display:block;
+  border-left:1px solid #ddd;
+  position:absolute;
+  top:0px;
+  padding:0px 0px 20px;
+  }
+
+  div.litecal .litecal-slot .label {
+    float:right;
+    line-height:20px;
+    }
+
+  div.litecal .litecal-slot .label span {
+    height:20px;
+    float:left;
+    }
+
+  div.litecal .litecal-slot .label:hover span {
+    background:#666;
+    color:#fff;
+    }
+
+    div.litecal .litecal-slot .label span.num {
+      width:20px;
+      text-align:center;
+      }
+
+    div.litecal .litecal-slot .label span.add {
+      border-right:1px solid #999;
+      display:none;
+      padding:0px 5px;
+      }
+
+  div.litecal .litecal-slot a.label:hover span.add { display:block; }
+
+  div.litecal .litecal-slot-gutter,
+  div.litecal .litecal-slot-gutter .label span,
+  div.litecal .litecal-slot-gutter .label span a {
+    color:#999;
+    background:#eee;
+    }
+
+  div.litecal .rows-0,
+  div.litecal .rows-1,
+  div.litecal .rows-2,
+  div.litecal .rows-3 { height:60px; }
+  div.litecal .rows-4 { height:80px; }
+  div.litecal .rows-5 { height:100px; }
+  div.litecal .rows-6 { height:120px; }
+  div.litecal .rows-7 { height:140px; }
+  div.litecal .rows-8 { height:160px; }
+  div.litecal .rows-9 { height:180px; }
+  div.litecal .rows-10 { height:200px; }
+  div.litecal .rows-11 { height:220px; }
+  div.litecal .rows-12 { height:240px; }
+  div.litecal .rows-13 { height:260px; }
+  div.litecal .rows-14 { height:280px; }
+  div.litecal .rows-15 { height:300px; }
+  div.litecal .rows-16 { height:320px; }
+  div.litecal .rows-17 { height:340px; }
+  div.litecal .rows-18 { height:360px; }
+  div.litecal .rows-19 { height:380px; }
+  div.litecal .rows-20 { height:400px; }
+
+div.litecal .litecal-header,
+div.litecal .litecal-row {
+  position:relative;
+  height:20px;
+  line-height:19px;
+  }
+
+  div.litecal .litecal-label,
+  div.litecal .litecal-item {
+    position:absolute;
+    top:0px;
+    }
+
+  div.litecal .litecal-label,
+  div.litecal .litecal-item,
+  div.litecal .litecal-data {
+    display:block;
+    height:19px;
+    }
+
+  div.litecal .litecal-item {
+    cursor:pointer;
+    color:#fff;
+    }
+
+    div.litecal .color { background:#39f; }
+
+    div.litecal .starts {
+      -moz-border-radius-topleft:5px;
+      -moz-border-radius-bottomleft:5px;
+      -webkit-border-top-left-radius:5px;
+      -webkit-border-bottom-left-radius:5px;
+      }
+
+    div.litecal .ends {
+      -moz-border-radius-topright:5px;
+      -moz-border-radius-bottomright:5px;
+      -webkit-border-top-right-radius:5px;
+      -webkit-border-bottom-right-radius:5px;
+      }
+
+  div.litecal .litecal-data {
+    overflow:hidden;
+    margin:0px 10px 0px 5px;
+    white-space:nowrap;
+    }
+
+    div.litecal .litecal-data * { display:inline; }
+
+/**
+ * Litecal Compact
+ */
+div.litecal-compact .litecal-title { margin:0px; }
+div.litecal-compact .litecal-title ul.links { display:none; }
+div.litecal-compact .litecal-timespan { padding:15px 0px 0px; }
+div.litecal-compact .litecal-slot { padding:0px 0px 15px; }
+
+div.litecal-compact .rows-0,
+div.litecal-compact .rows-1,
+div.litecal-compact .rows-2 { height:20px; }
+div.litecal-compact .rows-3 { height:30px; }
+div.litecal-compact .rows-4 { height:40px; }
+div.litecal-compact .rows-5 { height:50px; }
+div.litecal-compact .rows-6 { height:60px; }
+div.litecal-compact .rows-7 { height:70px; }
+div.litecal-compact .rows-8 { height:80px; }
+div.litecal-compact .rows-9 { height:90px; }
+div.litecal-compact .rows-10 { height:100px; }
+div.litecal-compact .rows-11 { height:110px; }
+div.litecal-compact .rows-12 { height:120px; }
+div.litecal-compact .rows-13 { height:130px; }
+div.litecal-compact .rows-14 { height:140px; }
+div.litecal-compact .rows-15 { height:150px; }
+div.litecal-compact .rows-16 { height:160px; }
+div.litecal-compact .rows-17 { height:170px; }
+div.litecal-compact .rows-18 { height:180px; }
+div.litecal-compact .rows-19 { height:190px; }
+div.litecal-compact .rows-20 { height:200px; }
+
+div.litecal-compact .litecal-slot .label span {
+  font-size:9px;
+  height:15px;
+  line-height:15px;
+  }
+
+  div.litecal-compact .litecal-slot a.label:hover span.add { display:none; }
+
+div.litecal-compact .litecal-row { height:10px; }
+div.litecal-compact .litecal-item,
+div.litecal-compact .litecal-data { height:9px; }
+
+  div.litecal-compact .starts {
+    -moz-border-radius-topleft:3px;
+    -moz-border-radius-bottomleft:3px;
+    -webkit-border-top-left-radius:3px;
+    -webkit-border-bottom-left-radius:3px;
+    }
+
+  div.litecal-compact .ends {
+    -moz-border-radius-topright:3px;
+    -moz-border-radius-bottomright:3px;
+    -webkit-border-top-right-radius:3px;
+    -webkit-border-bottom-right-radius:3px;
+    }
+
+  div.litecal-compact .litecal-data {
+    overflow:hidden;
+    text-indent:-999px;
+    }
+
+  div.litecal-compact .litecal-item span.popup { bottom:10px; }

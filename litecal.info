@@ -1,0 +1,3 @@
+name = "Litecal"
+description = "A lite clean calendar UI."
+core = "6.x"

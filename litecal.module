@@ -1,0 +1,65 @@
+<?php
+// $Id$
+
+define('LITECAL_EMPTY', 0);
+define('LITECAL_ITEM', 1);
+
+/**
+ * Implementation of hook_form_alter() for views_ui_preview_form.
+ */
+function litecal_form_views_ui_preview_form_alter(&$form, &$form_state) {
+  drupal_add_css(drupal_get_path('module', 'litecal') .'/litecal.css');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function litecal_theme() {
+  $registry = array();
+  $registry['litecal_timeitem'] =
+  $registry['litecal_timeslot'] = 
+  $registry['litecal_timeslots'] =
+  $registry['litecal_header'] = array(
+    'file' => 'litecal.theme.inc',
+  );
+  return $registry;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function litecal_views_api() {
+  return array('api' => 2);
+}
+
+/**
+ * Implementation of hook_views_plugins().
+ */
+function litecal_views_plugins() {
+  return array(
+    'module' => 'views', // This just tells our themes are elsewhere.
+    'style' => array(
+      'litecal' => array(
+        'title' => t('Litecal'),
+        'help' => t('Litecal.'),
+        'handler' => 'litecal_plugin_style_litecal',
+        'theme' => 'litecal_view',
+        'theme path' => drupal_get_path('module', 'litecal'),
+        'theme file' => 'litecal.theme.inc',
+        'path' => drupal_get_path('module', 'litecal'),
+        'uses row plugin' => TRUE,
+        'uses fields' => TRUE,
+        'uses options' => TRUE,
+        'type' => 'normal',
+        'even empty' => TRUE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Preprocessor for theme_litecal_view().
+ */
+function template_preprocess_litecal_view(&$vars) {
+  $vars['view']->style_plugin->preprocess($vars);
+}
