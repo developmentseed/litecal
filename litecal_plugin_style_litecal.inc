@@ -240,7 +240,7 @@ class litecal_month {
     // Generate timespans
     $current = drupal_clone($this->display_from);
 
-    while (litecal_date_difference($this->display_to, $current, 'days') > 0) {
+    while (litecal_date_difference($this->display_to, $current, 'hours') > 0) {
       $timespan = new litecal_timespan($current, 7, 'days');
 
       // If the real calendar start is not the same as the display start,
