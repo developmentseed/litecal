@@ -83,6 +83,8 @@ div.litecal .litecal-slot {
     background:#eee;
     }
 
+  div.litecal .litecal-slot-today { background:#fff8bb; }
+
   div.litecal .rows-0,
   div.litecal .rows-1,
   div.litecal .rows-2,

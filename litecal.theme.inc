@@ -73,6 +73,13 @@ function theme_litecal_timeslot($timespan, $start, $date, $format, $quickadd = a
   // Classes
   $attr['class'] = 'litecal-slot rows-'. count($timespan->built);
 
+  // Add class for today's slot.
+  static $today;
+  $today = !isset($today) ? date_format_date(date_now(), 'custom', 'Y-m-d') : $today;
+  if ($today == date_format_date($date, 'custom', 'Y-m-d')) {
+    $attr['class'] .= ' litecal-slot-today';
+  }
+
   // If this timeslot is outside of the timespan's real time range,
   // add a class so it can be displayed accordingly.
   if (!litecal_date_between($date, $timespan->real_from, $timespan->real_to)) {
