@@ -229,9 +229,10 @@ class litecal_month {
     $from_weekday = date_format_date($this->from, 'custom', 'w');
     $to_weekday = date_format_date($this->to, 'custom', 'w');
 
-    // Get the offset -- which must be %7
+    // Get the offset -- which must be %7. Note that the $to_offset must by < 7 as 
+    // we should never add a full week.
     $from_offset = (7 - (variable_get('date_first_day', 0) - $from_weekday)) % 7;
-    $to_offset = (7 - ($to_weekday - variable_get('date_first_day', 0))) % 7;
+    $to_offset = ((7 - ($to_weekday - variable_get('date_first_day', 0))) % 7) - 1;
 
     // Get display from/to dates of calendar
     date_modify($this->display_from, "-{$from_offset} days");
