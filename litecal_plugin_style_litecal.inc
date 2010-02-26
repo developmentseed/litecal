@@ -231,8 +231,10 @@ class litecal_month {
 
     // Get the offset -- which must be %7. Note that the $to_offset must by < 7 as 
     // we should never add a full week.
+    $_to_weekday_offset = variable_get('date_first_day', 0) - 1;
+    $_to_weekday_offset = ($_to_weekday_offset >= 0) ? $_to_weekday_offset : (7 + $_to_weekday_offset);
     $from_offset = (7 - (variable_get('date_first_day', 0) - $from_weekday)) % 7;
-    $to_offset = ((7 - ($to_weekday - variable_get('date_first_day', 0))) % 7) - 1;
+    $to_offset = (7 - ($to_weekday - $_to_weekday_offset)) % 7;
 
     // Get display from/to dates of calendar
     date_modify($this->display_from, "-{$from_offset} days");
