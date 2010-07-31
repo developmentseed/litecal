@@ -147,29 +147,38 @@ class litecal_plugin_style_litecal extends views_plugin_style {
 
     // Find date fields and generate litecal items from them
     if (!empty($view->date_info->date_handler_fields)) {
-      $date_field = $view->date_info->date_handler_fields;
-      $date_field = array_shift($date_field);
-      $date_field = $date_field['view_field']->real_field;
-
-      $alias_from = !empty($view->date_info->aliases[$date_field]) ? $view->date_info->aliases[$date_field] : NULL;
-      $alias_to = !empty($view->date_info->aliases["{$date_field}2"]) ? $view->date_info->aliases["{$date_field}2"] : $alias_from;
-
-      if (!empty($alias_from)) {
+      // Collect from and to aliases for all date fields on this view
+      $aliases = array();
+      foreach ($view->date_info->date_handler_fields as $date_field) {
+        $real_field = $date_field['view_field']->real_field;
+        if (!empty($date_field['view_field']->aliases[$real_field])) {
+          $aliases[$real_field]['from'] = $date_field['view_field']->aliases[$real_field];
+        }
+        if (!empty($date_field['view_field']->aliases["{$real_field}2"])) {
+          $aliases[$real_field]['to'] = $date_field['view_field']->aliases["{$real_field}2"];
+        }
+      }
+      if (!empty($aliases)) {
         if (!empty($options['colorby']) && !empty($view->field[$options['colorby']])) {
           $colorby_field = $view->field[$options['colorby']];
         }
         foreach ($view->result as $num => $row) {
-          $item = new StdClass();
-          $item->from = date_convert($row->{$alias_from}, DATE_ISO, DATE_OBJECT);
-          $item->to = date_convert($row->{$alias_to}, DATE_ISO, DATE_OBJECT);
-          $item->id = !empty($colorby_field) ? $colorby_field->render($row) : $row->{$view->base_field};
-          $item->data = $vars['rows'][$num];
+          foreach ($aliases as $alias) {
+            if (!empty($row->{$alias['from']})) {
+              $item = new StdClass();
+              $item->from = date_convert($row->{$alias['from']}, DATE_ISO, DATE_OBJECT);
+              $item->to = isset($alias['to'], $row->{$alias['to']}) ? date_convert($row->{$alias['to']}, DATE_ISO, DATE_OBJECT) : drupal_clone($item->from);
+              $item->id = !empty($colorby_field) ? $colorby_field->render($row) : $row->{$view->base_field};
+              $item->data = $vars['rows'][$num];
 
-          // Link to node
-          // @TODO: make this views token-customizable
-          $item->url = ($view->base_table == 'node') ? "node/{$row->nid}" : NULL;
+              // Link to node
+              // @TODO: make this views token-customizable
+              $item->url = ($view->base_table == 'node') ? "node/{$row->nid}" : NULL;
 
-          $items[] = $item;
+              $items[] = $item;
+              break;
+            }
+          }
         }
       }
     }
