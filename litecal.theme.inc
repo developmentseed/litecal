@@ -12,9 +12,9 @@ function theme_litecal_timeitem($item, $granularity) {
   $attr['class'] = 'litecal-item';
   $attr['class'] .= $item->starts ? ' starts' : '';
   $attr['class'] .= $item->ends ? ' ends' : '';
-  if (module_exists('seed')) {
-    $attr['class'] .= ' crayon crayon-'. theme('seed_crayon', $item->id);
-    $popup = theme('seed_crayon_popup', $item->id, $item->data);
+  if (module_exists('crayon')) {
+    $attr['class'] .= ' crayon-anchor crayon-'. crayon_generate_index($item->id);
+    $popup = theme('crayon_popup', $item->data, $item->id);
   }
   else {
     $attr['class'] .= ' color';
