@@ -93,7 +93,7 @@ function theme_litecal_timeslot($timespan, $start, $date, $format, $quickadd = a
     $type = str_replace('_', '-', $quickadd['type']);
     $item = menu_get_item("node/add/{$type}");
     if ($item && $item['access']) {
-      $options = array('query' => "edit[{$quickadd['field']}][0][value]=". date_convert($date, DATE_OBJECT, DATE_ISO) ."&destination=" . $_GET['q']);
+      $options = array('query' => "edit[{$quickadd['field']}][0][value][date]=". date_format_date($date, 'custom', 'm/d/Y') ."&destination=" . $_GET['q']);
       $link_attr['href'] = url("node/add/{$type}", $options);
       $add = "<span class='add'>". t('+ Add') ."</span>";
     }
