@@ -183,10 +183,12 @@ class litecal_plugin_style_litecal extends views_plugin_style {
       }
     }
 
-    $litecal->add($items);
-    $litecal->build();
+    if ($litecal) {
+      $litecal->add($items);
+      $litecal->build();
 
-    $vars = array_merge($vars, $litecal->built);
+      $vars = array_merge($vars, $litecal->built);
+    }
   }
 }
 
