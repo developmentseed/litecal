@@ -141,6 +141,25 @@ class litecal_plugin_style_litecal extends views_plugin_style {
 
         $litecal = new litecal_month($arg_from, $arg_to, $options);
         break;
+
+      case 'week':
+        // Generate Prev / Next links
+        $next_week = ($view->argument[$argument]->week == 52) ? 1 : $view->argument[$argument]->week + 1;
+        $next_year = ($view->argument[$argument]->week == 52) ? $view->argument[$argument]->year + 1 : $view->argument[$argument]->year;
+
+        $prev_week = ($view->argument[$argument]->week == 1) ? 52 : $view->argument[$argument]->week - 1;
+        $prev_year = ($view->argument[$argument]->week == 1) ? $view->argument[$argument]->year - 1 : $view->argument[$argument]->year;
+
+        $args[$arg_pos] = "{$prev_year}-W{$prev_week}";
+        $links['prev'] = array('title' => t('Previous'), 'href' => $view->get_url($args));
+
+        $args[$arg_pos] = "{$next_year}-W{$next_week}";
+        $links['next'] = array('title' => t('Next'), 'href' => $view->get_url($args));
+
+        $vars['links'] = $links;
+
+        $litecal = new litecal_week($arg_from, $arg_to, $options);
+        break;
     }
 
     $items = array();
@@ -332,6 +351,70 @@ class litecal_month {
     $month = date_format($this->from, 'n');
     $year =  date_format($this->from, 'Y');
     $this->built['title'] = $months[(int) $month] .' '. $year;
+  }
+}
+
+/**
+ * A week class. Manages a set of timespans which represent days of
+ * the week and a single set of items which may be displayed in those
+ * timespans.
+ */
+class litecal_week extends litecal_month {
+  var $display_from;
+  var $display_to;
+  var $from;
+  var $to;
+
+  var $options = array();
+  var $items = array();
+
+  var $timespans;
+  var $built;
+
+  function __construct($from_date, $to_date, $options = array()) {
+    $this->options = $options;
+
+    $this->from = drupal_clone($from_date);
+    $this->to = drupal_clone($to_date);
+
+    $this->display_from = drupal_clone($from_date);
+    $this->display_to = drupal_clone($to_date);
+
+    // Generate timespans
+    $current = drupal_clone($this->display_from);
+
+    while (litecal_date_difference($this->display_to, $current, 'hours') > 0) {
+      $timespan = new litecal_timespan($current, 7, 'days');
+
+      // If the real calendar start is not the same as the display start,
+      // We need to store it with the timespan.
+      if (litecal_date_between($this->from, $timespan->from, $timespan->to)) {
+        $timespan->real_from = drupal_clone($this->from);
+      }
+      // If the real calendar end is not the same as the display end,
+      // We need to store it with the timespan.
+      if (litecal_date_between($this->to, $timespan->from, $timespan->to)) {
+        $timespan->real_to = drupal_clone($this->to);
+      }
+
+      $this->timespans[] = $timespan;
+      date_modify($current, '+7 days');
+    }
+  }
+
+  /**
+   * Render items to HTML and store in structured array.
+   */
+  function build() {
+    // Identical to month except title
+    parent::build();
+
+    // Week title
+    $months = date_month_names();
+    $month = date_format($this->from, 'n');
+    $day =  date_format($this->from, 'j');
+    $year =  date_format($this->from, 'Y');
+    $this->built['title'] = 'Week of ' . $months[(int) $month] .' '. $day .' '. $year;
   }
 }
 
